@@ -30,7 +30,7 @@ var sessionList = {};
     next(); // <-- important!
 });
 app.get('/index', function (req, res) {
-    res.sendFile( __dirname + '/public/substitutionPage.htm');
+    res.sendFile( __dirname + '/public/index.htm');
     
 });
     

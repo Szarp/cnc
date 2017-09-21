@@ -56,8 +56,8 @@
         }
         </style>
     <script>
-          setTimeout(function(){
-            var ancestor = document.getElementById('board');
+        function setBoard(){
+            var ancestor = document.getElementById('board2');
             //console.log(ancestor);
             var descendents = ancestor.getElementsByTagName('circle');   
             var elem = descendents;
@@ -71,14 +71,14 @@
                 descendents[i].setAttribute('cy',p[i].y);
                 descendents[i].dataset["label"]=i;
                 descendents[i].addEventListener("click",function(){
-                    cncActions("point",[this.getAttribute('cx'),this.getAttribute('cy'),0])
+                    cncActions("point",[this.getAttribute('cx'),this.getAttribute('cy'),0]);
+                    arrow(this.getAttribute('cx'),this.getAttribute('cy'));
                     //console.log('a',,);
                 })
                 
             }
             console.log(document.getElementById('board'));
-            //elem
-          },1000);
+        }
 var exampleData={
     board:{
         params:{
@@ -119,24 +119,14 @@ var exampleData1={
             }
         },
     points:[{"id":"0","x":23.3979,"y":4.5371,"sq":0.1100,"kind":"rec"},{"id":"1","x":23.3979,"y":5.3371,"sq":0.1100,"kind":"rec"},{"id":"2","x":23.3979,"y":6.1371,"sq":0.1100,"kind":"rec"},{"id":"3","x":23.3979,"y":6.9371,"sq":0.1100,"kind":"rec"},{"id":"4","x":23.3979,"y":7.7371,"sq":0.1100,"kind":"rec"},{"id":"5","x":23.3979,"y":8.5371,"sq":0.1100,"kind":"rec"},{"id":"6","x":23.3979,"y":9.3371,"sq":0.1100,"kind":"rec"},{"id":"7","x":23.3979,"y":10.1371,"sq":0.1100,"kind":"rec"},{"id":"8","x":31.9831,"y":10.1371,"sq":0.1100,"kind":"rec"},{"id":"9","x":31.9831,"y":9.3371,"sq":0.1100,"kind":"rec"},{"id":"10","x":31.9831,"y":8.5371,"sq":0.1100,"kind":"rec"},{"id":"11","x":31.9831,"y":7.7371,"sq":0.1100,"kind":"rec"},{"id":"12","x":31.9831,"y":6.9371,"sq":0.1100,"kind":"rec"},{"id":"13","x":31.9831,"y":6.1371,"sq":0.1100,"kind":"rec"},{"id":"14","x":31.9831,"y":5.3371,"sq":0.1100,"kind":"rec"},{"id":"15","x":31.9831,"y":4.5371,"sq":0.1100,"kind":"rec"},{"id":"16","x":30.4905,"y":3.0445,"sq":0.1100,"kind":"rec"},{"id":"17","x":29.6905,"y":3.0445,"sq":0.1100,"kind":"rec"},{"id":"18","x":28.8905,"y":3.0445,"sq":0.1100,"kind":"rec"},{"id":"19","x":28.0905,"y":3.0445,"sq":0.1100,"kind":"rec"},{"id":"20","x":27.2905,"y":3.0445,"sq":0.1100,"kind":"rec"},{"id":"21","x":26.4905,"y":3.0445,"sq":0.1100,"kind":"rec"},{"id":"22","x":25.6905,"y":3.0445,"sq":0.1100,"kind":"rec"},{"id":"23","x":24.8905,"y":3.0445,"sq":0.1100,"kind":"rec"},{"id":"24","x":24.8905,"y":11.6297,"sq":0.1100,"kind":"rec"},{"id":"25","x":25.6905,"y":11.6297,"sq":0.1100,"kind":"rec"},{"id":"26","x":26.4905,"y":11.6297,"sq":0.1100,"kind":"rec"},{"id":"27","x":27.2905,"y":11.6297,"sq":0.1100,"kind":"rec"},{"id":"28","x":28.0905,"y":11.6297,"sq":0.1100,"kind":"rec"},{"id":"29","x":28.8905,"y":11.6297,"sq":0.1100,"kind":"rec"},{"id":"30","x":29.6905,"y":11.6297,"sq":0.1100,"kind":"rec"},{"id":"31","x":30.4905,"y":11.6297,"sq":0.1100,"kind":"rec"},{"id":"32","x":33.7285,"y":15.1305,"sq":0.1705,"kind":"rec"},{"id":"33","x":35.4285,"y":15.1305,"sq":0.1705,"kind":"rec"},{"id":"34","x":20.1634,"y":11.2943,"sq":0.1705,"kind":"rec"},{"id":"35","x":18.4634,"y":11.2943,"sq":0.1705,"kind":"rec"},{"id":"36","x":18.4311,"y":8.0037,"sq":0.1705,"kind":"rec"},{"id":"37","x":20.1311,"y":8.0037,"sq":0.1705,"kind":"rec"},{"id":"38","x":20.1078,"y":5.8893,"sq":0.1705,"kind":"rec"},{"id":"39","x":18.4078,"y":5.8893,"sq":0.1705,"kind":"rec"},{"id":"40","x":18.3941,"y":3.7951,"sq":0.1705,"kind":"rec"},{"id":"41","x":20.0941,"y":3.7951,"sq":0.1705,"kind":"rec"},{"id":"42","x":34.5588,"y":6.3077,"sq":0.1705,"kind":"rec"},{"id":"43","x":36.2588,"y":6.3077,"sq":0.1705,"kind":"rec"},{"id":"44","x":38.0000,"y":6.3523,"sq":0.1705,"kind":"rec"},{"id":"45","x":38.0000,"y":5.0175,"sq":0.1705,"kind":"rec"},{"id":"46","x":38.0000,"y":3.3175,"sq":0.1705,"kind":"rec"},{"id":"47","x":38.0000,"y":8.0523,"sq":0.1705,"kind":"rec"},{"id":"48","x":22.9585,"y":11.3730,"sq":0.1705,"kind":"rec"},{"id":"49","x":22.9585,"y":13.0730,"sq":0.1705,"kind":"rec"},{"id":"50","x":37.0048,"y":14.7793,"sq":0.0000,"kind":""},{"id":"51","x":37.0048,"y":15.4793,"sq":0.0000,"kind":""},{"id":"52","x":37.7048,"y":15.4793,"sq":0.0000,"kind":""},{"id":"53","x":37.7048,"y":14.7793,"sq":0.0000,"kind":""},{"id":"54","x":37.0048,"y":14.7793,"sq":0.0000,"kind":""},{"id":"55","x":37.0048,"y":15.0792,"sq":0.0000,"kind":""},{"id":"56","x":37.7048,"y":15.0792,"sq":0.0000,"kind":""},{"id":"57","x":37.7048,"y":15.3792,"sq":0.0000,"kind":""},{"id":"58","x":37.0048,"y":15.3792,"sq":0.0000,"kind":""},{"id":"59","x":38.7588,"y":15.4793,"sq":0.0000,"kind":""},{"id":"60","x":38.7588,"y":14.7793,"sq":0.0000,"kind":""},{"id":"61","x":38.7588,"y":15.4793,"sq":0.0000,"kind":""},{"id":"62","x":39.4588,"y":15.4793,"sq":0.0000,"kind":""},{"id":"63","x":39.4588,"y":14.7793,"sq":0.0000,"kind":""},{"id":"64","x":38.7588,"y":14.7793,"sq":0.0000,"kind":""},{"id":"65","x":38.7588,"y":15.0792,"sq":0.0000,"kind":""},{"id":"66","x":39.4588,"y":15.0792,"sq":0.0000,"kind":""},{"id":"67","x":39.4588,"y":15.3792,"sq":0.0000,"kind":""},{"id":"68","x":38.7588,"y":15.3792,"sq":0.0000,"kind":""},{"id":"69","x":40.0754,"y":12.2229,"sq":0.3828,"kind":"rec"},{"id":"70","x":34.5754,"y":12.2229,"sq":0.3828,"kind":"rec"},{"id":"71","x":34.5754,"y":9.0229,"sq":0.3828,"kind":"rec"},{"id":"72","x":40.0754,"y":9.0229,"sq":0.3828,"kind":"rec"},{"id":"73","x":16.3649,"y":4.4948,"sq":0.3581,"kind":"rec"},{"id":"74","x":13.6149,"y":4.4948,"sq":0.3581,"kind":"rec"},{"id":"75","x":14.9899,"y":2.9698,"sq":0.1240,"kind":"rec"},{"id":"76","x":18.0368,"y":13.8505,"sq":0.1736,"kind":"rec"},{"id":"77","x":20.8868,"y":13.8505,"sq":0.1736,"kind":"rec"},{"id":"78","x":19.4618,"y":14.7005,"sq":0.1023,"kind":"rec"},{"id":"79","x":19.4618,"y":13.0005,"sq":0.1023,"kind":"rec"}]
-}
-setTimeout(function(){
-prepareBoard(exampleData1);    
-    
-},500);
-
+}            
             
-            
-         
-            
-            
-            
-    function prepareBoard(array){
-        console.log('hi');
+function prepareBoard(array){
+    //console.log('hi');
     var oneElem;
     var elems="";
     var viewBox="";
-    var svg = document.getElementById('board');
+    var svg = document.getElementById('board2');
         oneElem = array.board;
         elems+=board(oneElem.params);
             viewBox="-10 -10 "+Number(oneElem.params.x+10)+ " "+Number(oneElem.params.y+10);
@@ -150,7 +140,7 @@ prepareBoard(exampleData1);
             //makePoint(oneElem);
         }
     console.log('elems',elems);
-    svg.innerHTML=elems;
+    svg.innerHTML+=elems;
     /*var descendents = ancestor.getElementsByTagName('circle'); 
         for(var i=0;i<array.points.length;i++){
             oneElem=array.points[i];
@@ -160,13 +150,31 @@ prepareBoard(exampleData1);
                 descendents[i].addEventListener('click',function(){
                     console.log(this);
                 });
-                
-                
-            
-            
         }
     */
     
+}
+        
+function arrow(begX,begY){
+    var points = [[1,1],[4,4],[2,3],[4,4],[3,2]];
+    //var x = Math.abs((begX-4));
+    var x = begX-4.5;
+    var y = begY-4.5;
+    //var y = Math.abs((begY-4));
+    var s="";
+    var buf1,buf2;
+    var doubles = points.map(function(a) {
+        buf1 = a[0]+x;
+        buf2 = a[1]+y;
+        s+=buf1+","+buf2+" ";
+        return [a[0]-x,a[1]-y];
+    });
+    
+    
+    var el=document.getElementById("board2").getElementsByTagName("polyline")[0];
+        console.log("hey",el.getAttribute("points"));
+    console.log(doubles,s);
+        el.setAttribute("points",s)
 }
         //makeElements('test','li',[0,10]);
 
@@ -223,41 +231,22 @@ function board(par) {
                             <ul>
                                 <li class="btn" id="control" >Control</li>
                                 <li class="btn" id="work"  >Work</li>
+                                <li class="btn" id="board"  >Board</li>
                         <!--        <li id="chooseBtn" onclick="">choose</li> --> 
                             </ul>
-                        </div>
-                         <div id="forDay">
-                            miejsce na nazwę
                         </div>
                          <div class="boxed-group">
                         <div class="boxed-group-section" id='controlPannel'>
                             
                 </div>
                 <div class="boxed-group-section" id='workPannel' style="display:none;">
-                <table id="arraysWork" class="arrays">
-                <tr id="stepWork" class="step">
-                    <td colspan="2">step size</td>
-                    <td><textarea id="" rows="1" cols="2" autocomplete="off" >5</textarea></td>
-                </tr>
-                <tr>
-                    <td style="visibility: hidden;"></td>
-                    <td id="upArrWork">&uarr;</td>
-                    <td style="visibility: hidden;"></td>
-                    <td id="topArr">&uarr;</td>
-                </tr>
-                <tr>
-                    <td id="leftArrWork">&larr;</td>
-                    <td >x,y</td>
-                    <td id="rightArrWork">&rarr;</td>
-                    <td >z</td>
-                </tr>
-                <tr>
-                    <td style="visibility: hidden;"></td>
-                    <td id="downArrWork">&darr;</td>
-                    <td style="visibility: hidden;"></td>
-                    <td id="bottomArrWork">&darr;</td>
-                </tr>
-            </table>
+                
+                            
+                </div>
+                <div class="boxed-group-section" id='boardPannel' style="display:none;">
+                <svg id="board2" width="500" height="300" viewBox="0 0 600 300">
+                            <polyline id="arrow" points="10,1 13,4 11,3 13,4 12,2" style="fill:none;stroke:red;stroke-width:0.5; fill-opacity:0.4" />
+                </svg>
                             
                 </div>
                              </div>
@@ -275,7 +264,11 @@ function board(par) {
                     <td id="zVal"></td>    
                 </tr>    
                 <tr>
-                    <td id="clearBtn" class="btn">Clear</td>    
+                    <td id="clearBtn" class="btn">Clear</td>  
+                    <td id="slideOutBtn" class="btn">Slide out</td>    
+                    <td id="slideInBtn" class="btn">Slide in</td>  
+                    <td class="btn" id="upDown">Up & Down</td> 
+                    
                     
                 </tr>         
             </table>
@@ -288,11 +281,11 @@ function board(par) {
             <div  class="boxed-group" >
                     <h3>Home</h3>
                     <div class="boxed-group-inner" style="text-align: justify;">
-                        <svg id="board" width="800" height="300" viewBox="-100 -20 500 200">
-                            <rect x="0" y="0" width="300" height="160" fill="none" stroke="black"/>
-                        </svg>
                         
-                    
+                        <!--<svg id="board1" width="500" height="300" viewBox="0 0 600 300">
+                            <polyline id="arrow" points="0,0 40,40 20,30 40,40 30,20 " style="fill:none;stroke:red;stroke-width:0.5; fill-opacity:0.4" />
+                        </svg>-->
+               
 
                     </div>
                     

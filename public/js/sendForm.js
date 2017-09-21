@@ -20,19 +20,22 @@ var btnEvents ={
     checkBtn:function(){tokenValidation('checkToken')},
     //upArr:function(){cncActions("move",[1,0,0],this)},
     //downArr:function(){cncActions("move",[-1,0,0])},
-    upArrWork:function(){cncActions("work",[1,0,0])},
-    downArrWork:function(){cncActions("work",[-1,0,0]);setTimeout(function(){cncActions("work",[1,0,0]);},1000)},
+    upDown:function(){cncActions("move",[0,0,-1],this); var self=this; setTimeout(function(){cncActions("move",[0,0,1],self);},1000)},
+    //downArrWork:function(){cncActions("work",[-1,0,0]);setTimeout(function(){cncActions("work",[1,0,0]);},1000)},
     //leftArr:function(){cncActions("move",[0,1,0])},
     //rightArr:function(){cncActions("move",[0,-1,0])},
-    //topArr:function(){cncActions("move",[0,0,1])},
+    slideOutBtn:function(){cncActions("slide",[0,-30,0])},
+    //boardTest:function(){cncActions("board","board1")},
+    slideInBtn:function(){cncActions("slide",[0,30,0])},
     control:function(){movePannnels("controlPannel")},
     work:function(){movePannnels("workPannel")},
+    board:function(){movePannnels("boardPannel")},
     //bottomArr:function(){cncActions("move",[0,0,-1])},
     clearBtn:function(){cncActions("setZero")}
 }
 function movePannnels(name){
     btnClicked(name);
-    var pannelList = ["controlPannel","workPannel"];
+    var pannelList = ["controlPannel","workPannel","boardPannel"];
     var el;
     for (var i=0; i<pannelList.length;i++){
         el= document.getElementById(pannelList[i]);
@@ -44,29 +47,17 @@ function movePannnels(name){
 }
 //setTimeout(function(){makeCheckbox("onePanel_checklist",[10,1,0.1],"checkbox");},2000);
 
-function clear(self){
-    
-    console.log(parent);
-    
-}
 var panel = new Panel();
-setTimeout(function(){console.log(panel.addPanel("controlPannel",{
-        checkbox:[10,1,0.1],
-        checked:-1,
-        ulClass:"checkbox",
-        arrayDirection:["left","right"],
-        arrayEvents:[function(){cncActions("move",[1,0,0],this)},function(){cncActions("move",[-1,0,0],this)}],
-        id:"xPanel",
-        name:"X panel"
-    }));
+function nextPanels(){
+    console.log("panel test");
     panel.addPanel("controlPannel",{
         checkbox:[10,1,0.1],
         checked:-1,
         ulClass:"checkbox",
-        arrayDirection:["up","down"],
-        arrayEvents:[function(){cncActions("move",[0,1,0],this)},function(){cncActions("move",[0,-1,0],this)}],
-        id:"yPanel",
-        name:"Y panel"
+        arrayDirection:["left","right","up","down"],
+        arrayEvents:[function(){cncActions("move",[1,0,0],this)},function(){cncActions("move",[-1,0,0],this)},function(){cncActions("move",[0,1,0],this)},function(){cncActions("move",[0,-1,0],this)}],
+        id:"xPanel",
+        name:"XY panel"
     });
     panel.addPanel("controlPannel",{
         checkbox:[10,1,0.1],
@@ -77,7 +68,38 @@ setTimeout(function(){console.log(panel.addPanel("controlPannel",{
         id:"zPanel",
         name:"Z panel"
     });
-                     },1000);
+    panel.addPanel("workPannel",{
+        checkbox:[1,0.8,0.5],
+        checked:-1,
+        ulClass:"checkbox",
+        arrayDirection:["left","right"],
+        arrayEvents:[function(){cncActions("move",[1,0,0],this)},function(){cncActions("move",[-1,0,0],this)}],
+        id:"XworkPanel",
+        name:"X panel"
+    });
+    panel.addPanel("workPannel",{
+        checkbox:[1,0.8,0.5],
+        checked:-1,
+        ulClass:"checkbox",
+        arrayDirection:["up","down"],
+        arrayEvents:[function(){cncActions("move",[0,1,0],this)},function(){cncActions("move",[0,-1,0],this)}],
+        id:"YworkPanel",
+        name:"Y panel"
+    });
+    panel.addPanel("workPannel",{
+        checkbox:[1,0.8,0.5],
+        checked:-1,
+        ulClass:"checkbox",
+        arrayDirection:["up","down","left"],
+        arrayEvents:[
+            function(){cncActions("move",[0,0,1],this)},
+            function(){cncActions("move",[0,0,-1],this)},
+            function(){cncActions("move",[0,0,-1],this); var self=this; setTimeout(function(){cncActions("move",[0,0,1],self);},1000)}],
+        id:"ZworkPanel",
+        name:"Z panel"
+    });
+                     
+};
 function Panel(){
     var self=this;
     this.panelList=[];
@@ -101,7 +123,7 @@ function Panel(){
         
     }
     this.prepareTable=function(json){
-        return '<table id="'+json["id"]+'" class="arrays"><tr><td colspan="2">'+json["name"]+'</td></tr><tr><td colspan="2" id="'+json["id"]+'_checkbox"></td></tr><tr>'+self.prepareArrays(json["id"],json["arrayDirection"])+'</tr></table>';
+        return '<table id="'+json["id"]+'" class="arrays"><tr><td colspan="2">'+json["name"]+'</td></tr><tr><td colspan="2" id="'+json["id"]+'_checkbox"></td></tr>'+self.prepareArrays(json["id"],json["arrayDirection"])+'</table>';
     }
     this.prepareArrays=function(id,arrays){
         eventsAttach.call(this);
@@ -112,8 +134,11 @@ function Panel(){
             left:"&larr;",
             right:"&rarr;"
         }
-        for(var i=0;i<2;i++){
-            elems+='<td id="'+id+'_'+arrays[i]+'">'+marks[arrays[i]]+'</td>';
+        for(var i=0;i<arrays.length;i++){
+            if(i % 2 ==0)
+                elems+='<tr><td id="'+id+'_'+arrays[i]+'">'+marks[arrays[i]]+'</td>';
+            else
+                elems+='<td id="'+id+'_'+arrays[i]+'">'+marks[arrays[i]]+'</td></tr>';
         }
         return elems;
     }
@@ -156,12 +181,13 @@ function Panel(){
             panel,
             event;
         //console.log("hi");
-        console.log(self.panelList[0]["arrayDirection"]);
+        //console.log(self.panelList[0]["arrayDirection"]);
         for(var i=0;i<self.panelList.length;i++){
             panel=self.panelList[i]
             for(var j=0;j<panel["arrayDirection"].length;j++){
                 el = document.getElementById(panel["id"]+"_"+panel["arrayDirection"][j])
                 event=panel["arrayEvents"][j];
+                //console.log(el,event);
                 el.removeEventListener('click',event,false);
                 //console.log(el,event)
                 el.addEventListener('click',event,false);
@@ -209,8 +235,19 @@ function cncActions(type,value,self){
             value[1]*=factor;
             value[2]*=factor;
         }
+        else{
+            return;
+        }
+    }
+    else if(type == "slide"){
+        form["type"]="move"
+        //console.log("input test",panel.checkValues(self));
+        //its just nice
     }
     else if (type=="point"){
+        
+    }
+    else if (type=="board"){
         
     }
     else if (type=="setZero"){
@@ -225,6 +262,10 @@ function cncActions(type,value,self){
             value[2]*=el;
         
     }
+        else{
+            console.log('ops, some problem');
+            return;
+        }
     }
     form['value'] = value;
     //console.log(form);
@@ -278,7 +319,7 @@ function tokenValidation(mode){
 //800=1.5
 //2/3*800=1
 function setValuesToForm(params){
-    var formList=['speed','setNotification'];
+    var formList=['speed'];
     for(var i=0;i<params.length;i++){
         var sel = document.getElementById(formList[i]);
         if(i==0)
@@ -381,6 +422,9 @@ function sendMessage(){
 	}
 }
 function onLoadFunc(){
+    //arrow(13,4);
+    prepareBoard(exampleData1);  
+    setBoard();
     console.log('hi2');
     var url='postCall';
     var form={};
@@ -394,8 +438,9 @@ function onLoadFunc(){
     set.addClicks();
         //z.setFields(settings1['fields']);
         //z.setClassName(settings1.formValues[0]);
-    setValuesToForm(settings1['formValues'])
+    //setValuesToForm(settings1['formValues'])
     getPicture();
+        nextPanels();
        // movePannnels("controlPannel");
         
         //set.saveData(settings1);
@@ -450,7 +495,7 @@ function sendObj (url,json_obj,callback){
 
 function btnClicked(type){
     console.log('hello',type);
-    var idList={controlPannel:'control',workPannel:'work'};
+    var idList={controlPannel:'control',workPannel:'work',boardPannel:'board'};
     for (k in idList){
         if(k==type){
             document.getElementById(idList[k]).className='btn btnClicked';
