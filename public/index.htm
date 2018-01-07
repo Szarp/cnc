@@ -59,7 +59,8 @@
         function setBoard(){
             var ancestor = document.getElementById('board2');
             //console.log(ancestor);
-            var descendents = ancestor.getElementsByTagName('circle');   
+            var descendents = ancestor.getElementsByTagName('rect');   
+            //var descendents = ancestor.getElementsByTagName('circle');   
             var elem = descendents;
               //var hey=0;
               var p = exampleData1.points;
@@ -69,10 +70,18 @@
                 descendents[i].setAttribute('r',p[i].sq);
                 descendents[i].setAttribute('cx',p[i].x);
                 descendents[i].setAttribute('cy',p[i].y);
+                */
+                console.log(descendents[i]);
+                descendents[i].setAttribute('x',x);
+                descendents[i].setAttribute('width',p[i].params.sizeX);
+                descendents[i].setAttribute('height',p[i].params.sizeY);
+                descendents[i].setAttribute('y',y);
                 descendents[i].dataset["label"]=i;
                 descendents[i].addEventListener("click",function(){
-                    cncActions("point",[this.getAttribute('cx'),this.getAttribute('cy'),0]);
-                    arrow(this.getAttribute('cx'),this.getAttribute('cy'));
+                    //cncActions("point",[this.getAttribute('cx'),this.getAttribute('cy'),0]);
+                    //arrow(this.getAttribute('cx'),this.getAttribute('cy'));
+                    cncActions("point",[this.getAttribute('x'),this.getAttribute('y'),0]);
+                    arrow(this.getAttribute('x'),this.getAttribute('y'));
                     //console.log('a',,);
                 })
                 
@@ -187,7 +196,8 @@ function svgBoard(){
     
 }
 function defPoint() {
-    return '<circle cx="0" cy="0" r="0" stroke-width="0.5px" stroke="black"  fill="red" />';
+    return '<rect x="0" y="0" width="0" height="0" stroke-width="0px" stroke="black"  fill="red"/>'
+    //return '<circle cx="0" cy="0" r="0" stroke-width="0.5px" stroke="black"  fill="red" />';
 }
 function board(par) {
     return '<rect x="0" y="0" width="'+par.x+'" height="'+par.y+'" fill="none" stroke="black"/>'
